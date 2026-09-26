@@ -1,0 +1,47 @@
+# Secrets (copy .env.example to .env instead)
+.env
+.env.*
+!.env.example
+
+# Old version of the bot (contains old credentials)
+legacy/
+
+# Runtime data (saved playlists)
+data/
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# FFmpeg binaries (large; install FFmpeg or drop the .exe files in the project folder)
+ffmpeg.exe
+ffplay.exe
+ffprobe.exe
+ffmpeg
+ffprobe
+
+# Leftover audio from the old download-based player
+*.mp3
+*.webm
+*.m4a
+*.opus
+*.wav
+*.part
+
+# Logs and temp files
+*.log
+*.tmp
+
+# IDE and OS files
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
