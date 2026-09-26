@@ -143,3 +143,7 @@ The bot needs FFmpeg, which isn't included in the repository. Install it with `w
 | `musicbot/sources.py` | yt-dlp search and streaming |
 | `musicbot/resolvers.py` | Spotify, Deezer, Apple Music and radio lookups |
 | `legacy/` | The original bot, kept for reference |
+
+## License
+
+[MIT](LICENSE)
