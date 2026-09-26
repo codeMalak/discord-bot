@@ -95,14 +95,21 @@ Slash commands have a separate box for each argument, so they don't need quotes.
 
 ## Setup
 
-1. Create the virtual environment and install the dependencies:
-   ```
-   python -m venv .venv
-   .venv\Scripts\pip install -r requirements.txt
-   ```
-2. Copy `.env.example` to `.env` and set `DISCORD_TOKEN`.
-3. In the [Discord Developer Portal](https://discord.com/developers/applications), open your app. Under **Bot**, turn on **Message Content Intent**. The `$` commands need it.
-4. Invite the bot to your server. Replace `YOUR_APP_ID` with your application ID:
+1. Install FFmpeg, which isn't included in the repository:
+   - **Windows:** `winget install ffmpeg`, or put `ffmpeg.exe` in the project folder
+   - **Linux / Raspberry Pi:** `sudo apt install ffmpeg`
+   - **macOS:** `brew install ffmpeg`
+2. Create the virtual environment and install the dependencies:
+
+   | Shell | Commands |
+   |---|---|
+   | Windows (PowerShell or Command Prompt) | `python -m venv .venv` then `.venv\Scripts\pip install -r requirements.txt` |
+   | Git Bash on Windows | `python -m venv .venv` then `.venv/Scripts/pip install -r requirements.txt` |
+   | Linux, macOS, Raspberry Pi | `python3 -m venv .venv` then `.venv/bin/pip install -r requirements.txt` |
+
+3. Copy `.env.example` to `.env` and set `DISCORD_TOKEN`.
+4. In the [Discord Developer Portal](https://discord.com/developers/applications), open your app. Under **Bot**, turn on **Message Content Intent**. The `$` commands need it.
+5. Invite the bot to your server. Replace `YOUR_APP_ID` with your application ID:
    `https://discord.com/oauth2/authorize?client_id=YOUR_APP_ID&scope=bot+applications.commands&permissions=3230720`
 
    This link grants the permissions the bot needs:
@@ -112,12 +119,17 @@ Slash commands have a separate box for each argument, so they don't need quotes.
    - Read Message History
    - Connect
    - Speak
-5. Start the bot:
-   ```
-   .venv\Scripts\python main.py
-   ```
+6. Start the bot:
 
-The bot needs FFmpeg, which isn't included in the repository. Install it with `winget install ffmpeg`, or put `ffmpeg.exe` in the project folder. The bot looks in the project folder first, then on your PATH. YouTube playback also needs a JavaScript runtime. The `deno` package in `requirements.txt` provides one.
+   | Shell | Command |
+   |---|---|
+   | Windows (PowerShell or Command Prompt) | `.venv\Scripts\python main.py` |
+   | Git Bash on Windows | `.venv/Scripts/python main.py` |
+   | Linux, macOS, Raspberry Pi | `.venv/bin/python main.py` |
+
+   Alternatively, activate the virtual environment first, then run `python main.py`. Activate it with `.venv\Scripts\activate` on Windows, or `source .venv/bin/activate` on Linux and macOS (`source .venv/Scripts/activate` in Git Bash).
+
+The bot looks for FFmpeg in the project folder first, then on your PATH. YouTube playback also needs a JavaScript runtime. The `deno` package in `requirements.txt` provides one.
 
 ### Settings (`.env`)
 
