@@ -131,6 +131,28 @@ Slash commands have a separate box for each argument, so they don't need quotes.
 
 The bot looks for FFmpeg in the project folder first, then on your PATH. YouTube playback also needs a JavaScript runtime. The `deno` package in `requirements.txt` provides one.
 
+### Running as a service on Linux / Raspberry Pi
+
+To start the bot at boot and keep it running after you close SSH, install it as a systemd service. Finish the setup steps above first, then run these commands from the project folder:
+
+```bash
+sed -e "s|__USER__|$USER|g" -e "s|__DIR__|$PWD|g" deploy/discord-bot.service | sudo tee /etc/systemd/system/discord-bot.service
+sudo systemctl daemon-reload
+sudo systemctl enable --now discord-bot
+```
+
+The first command copies [deploy/discord-bot.service](deploy/discord-bot.service) into place with your username and project path filled in. `enable --now` starts the bot immediately and on every boot.
+
+The service restarts the bot if it crashes. It also updates yt-dlp each time it starts, because YouTube changes often and old versions of yt-dlp stop working.
+
+| Task | Command |
+|---|---|
+| Check whether it's running | `systemctl status discord-bot` |
+| Follow the live log | `journalctl -u discord-bot -f` |
+| Restart (for example, after `git pull` or editing `.env`) | `sudo systemctl restart discord-bot` |
+| Stop it | `sudo systemctl stop discord-bot` |
+| Stop it from starting at boot | `sudo systemctl disable discord-bot` |
+
 ### Settings (`.env`)
 
 | Setting | Default | Meaning |

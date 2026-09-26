@@ -1,0 +1,24 @@
+# systemd service for running the bot on Linux (e.g. a Raspberry Pi).
+# Install from the project folder (fills in your username and path):
+#   sed -e "s|__USER__|$USER|g" -e "s|__DIR__|$PWD|g" deploy/discord-bot.service | sudo tee /etc/systemd/system/discord-bot.service
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now discord-bot
+
+[Unit]
+Description=Discord music bot
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=__USER__
+WorkingDirectory=__DIR__
+Environment=PYTHONUNBUFFERED=1
+# Update yt-dlp on every start; YouTube changes often and old versions stop working.
+# The leading "-" means a failed update (e.g. no internet yet) won't stop the bot from starting.
+ExecStartPre=-__DIR__/.venv/bin/pip install -q -U "yt-dlp[default]"
+ExecStart=__DIR__/.venv/bin/python main.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
